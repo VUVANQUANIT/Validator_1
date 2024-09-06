@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Đăng kí</title>
+</head>
+<body>
+    <div class="main">
+        <h2>Register</h2>
+        <form action="/submit_registration" method="POST" id="form-1">
+
+            <div class="spacer">
+
+            </div>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+                <span class="form-message">
+
+                </span>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+                <span class="form-message">
+
+                </span>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+                <span class="form-message">
+
+                </span>
+            </div>
+            <div class="form-group">
+                <label for="confirm-password">Confirm Password</label>
+                <input type="password" id="confirm-password" name="confirm-password" required>
+                <span class="form-message">
+
+                </span>
+            </div>
+            <div class="form-group">
+                <label for="gender">Giới tính</label><br>
+                <input type="radio" id="male" name="gender" value="Male" required>
+                <label for="male">Nam</label><br>
+                <input type="radio" id="female" name="gender" value="Female" required>
+                <label for="female">Nữ</label><br>
+                <input type="radio" id="other" name="gender" value="Other" required>
+                <label for="female">Other</label><br>
+                <span class="form-message"></span>
+            </div>
+            <div class="form-group">
+                <label for="gender">Ảnh đại diện</label><br>
+                <input type="file" id="avatar" name="avatar" class="form-control" >
+                <span class="form-message"></span>
+            </div>
+            <div class="form-group">
+                <label for="provicce" class="form-label">Tỉnh/Thành phố</label><br>
+                <select id="provicce" name="provicce" class="form-control" >
+                    <option value="">--Chọn Tỉnh/Thành phố</option>
+                    <option value="hni">Hà Nội</option>
+                    <option value="sgi">Thành Phố Hồ Chí Minh</option>
+                    <option value="hap">Hải Phòng</option>
+                    <option value="DAN">Đà Nẵng</option>
+                </select> 
+               
+                <span class="form-message"></span>
+            </div>
+            
+            <div class="form-group">
+                <button type="submit">Register</button>
+            </div>
+        </form>
+    </div>
+    <script src="validator.js"></script>
+    <script>
+        Validator({
+            form:'#form-1',
+            formGroupSelector: '.form-group',
+            errorSelector:'.form-message',
+            rules:[
+                  Validator.isRequest('#username','Vui lòng nhập tên của bạn'),
+                  Validator.isRequest('#email'),
+                  Validator.isEmail('#email'),
+                  Validator.minLength('#password',6),
+                  Validator.isRequest('#confirm-password'),
+                  Validator.isRequest('input[name ="gender"]'),
+                  Validator.isRequest('#provicce'),
+                  Validator.isRequest('#avatar'),
+                  Validator.isConfirmPass('#confirm-password',function(){
+                    return document.querySelector('#form-1 #password').value
+                  },"Mật khẩu nhập lại không chính xác")
+            ],
+            onSubmit:function(data){
+                console.log(data)
+            }
+        });
+    </script>
+</body>
+</html>
